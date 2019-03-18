@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{title}}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css" />
+    <script src="https://smtpjs.com/v2/smtp.js">
+    </script>
+
+    <script type="text/javascript">
+        function LoadSettings()
+        {
+            var idList = [];
+
+        }
+
+        //clientside script
+        function ShowNHide()
+        {
+            var isHid = document.getElementById("ShowHide").checked;
+            if (isHid)
+            {
+                document.getElementById("weekB").style.display = "block";
+                document.getElementById("total").textContent = "Week Total: {{total}}";
+                document.getElementById("Ending").textContent = "Fortnight Ending: {{Cdate}}";
+                document.getElementById("Approval").textContent = "{{fortApproval}}";
+                if ("{{fortApproval}}" != "Not Approved")
+                    document.getElementById("ButtonApprove").style.display = "none";
+                else
+                    document.getElementById("ButtonApprove").style.display = "block";
+            }
+            else
+            {
+                document.getElementById("weekB").style.display = "none";
+                document.getElementById("total").textContent = "Total: {{total}}";
+                document.getElementById("Ending").textContent = "Week Ending: {{Cdate}}";
+                document.getElementById("Approval").textContent = "{{weekApproval}}";
+                if ("{{weekApproval}}" != "Not Approved")
+                    document.getElementById("ButtonApprove").style.display = "none";
+                else
+                    document.getElementById("ButtonApprove").style.display = "block";
+            }
+        }
+        function LoadSettings()
+        {
+            document.getElementById("ShowHide").checked = false;
+            var clientDate = document.getElementsByClassName("JSday");
+            var clientStart = document.getElementsByClassName("JSst");
+            var clientEnd = document.getElementsByClassName("JSet");
+            var i;
+
+            if ("{{weekApproval}}" !== "Not Approved")
+            {
+                document.getElementById("ButtonApprove").style.display = "none";
+            }
+            else
+            {
+                document.getElementById("ButtonApprove").style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body onload="LoadSettings()">
+    <div id="booster">
+        <div id="content">
+            <div id="HeadBar">
+                <a href="/logout">
+                    <div id="logoutIco" class="DynaButton">
+                        <table>
+                            <tr>
+                                <td><img src="/img/logoutIco.png" /></td>
+                                <td><p>Signout</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </a>
+                <a href="/dashboard">
+                <div id="Back" class="DynaButton">
+                    <table>
+                        <tr>
+                            <td><p>Back</p></td>
+                            <td><img src="/img/back.png" /></td>
+                        </tr>
+                    </table>
+                    </div>
+                </a>
+            </div>
+            <div id="margin">
+                {{#if timesheetsB}}
+                <p>Show fortnight</p>
+                <input id="ShowHide" type="checkbox" onclick="ShowNHide()" />
+                {{/if}}
+                <div id="PrintAllBelow">
+                    <div id="flexContainer">
+                        <div class="flexObj">
+                            <img src="https://tsheets.mitservices.com.au/img/MITSG_Logo.jpg" />
+                        </div>
+                        <div class="flexObj" >
+                            <ul>
+                                <li id="Ending" >Week Ending: {{Cdate}}</li>
+                                <li id="Approval" >{{weekApproval}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="weekA">
+                        <table class="Timesheet" cellspacing="0" >
+                            <tr>
+                                <th>Day</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Contractor</th>
+                                <th>Hours</th>
+                            </tr>
+                            {{#each timesheets}}
+                            <tr>
+                                <td class="JSday">{{this.day}}</td>
+                                <td class="JSst">{{this.start}}</td>
+                                <td class="JSet">{{this.end}}</td>
+                                <td>{{this.fn}} {{this.ln}}</td>
+                                <td>{{this.duration}}</td>
+                            </tr>
+                            {{/each}}
+                        </table>
+                    </div>
+                    <br />
+                    <h3 id="total" >Total: {{total}}</h3>
+                    <br />
+                    <div id="weekB">
+                        <table class="Timesheet" cellspacing="0">
+                            <tr>
+                                <th >Day</th>
+                                <th >Start</th>
+                                <th >End</th>
+                                <th >Contractor</th>
+                                <th style="padding-top:10px;padding-bottom:10px;padding-right:10px;padding-left:10px;background-color:rgb(52, 52, 56);color:white;margin-top:0px;margin-bottom:0px;margin-right:0px;margin-left:0px;text-align:center;">Hours</th>
+                            </tr>
+                            {{#if timesheetsB}}
+                            {{#each timesheetsB}}
+                            <tr>
+                                <td class="JSday" >{{this.day}}</td>
+                                <td class="JSst" >{{this.start}}</td>
+                                <td class="JSet" >{{this.end}}</td>
+                                <td >{{this.fn}} {{this.ln}}</td>
+                                <td >{{this.duration}}</td>
+                            </tr>
+                            {{/each}}
+                            {{/if}}
+                        </table>
+                        <br />
+                        <h3 >Week Total: {{totalB}}</h3>
+                        <br />
+                        <h3 >Fortnight Total: {{fortTotal}}</h3>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+                <form method="post" action="/approved?date={{Cdate}}&time={{total}}&client={{Client}}&Pdate={{Pdate}}&Ptime={{totalB}}">
+                    <input type="hidden" value="{{SerializedContent}}" name="Content" />
+                    <input type="hidden" value="{{SerializedContentB}}" name="ContentB" />
+                    <input type="submit" value="Approve" id="ButtonApprove" style="display:none" class="buttonAccept" />
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+

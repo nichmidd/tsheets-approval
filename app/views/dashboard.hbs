@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css"/>
+    <title>{{title}}</title>
+</head>
+
+    <body>
+        <div id="booster">
+            <div id="content">
+                <div id="HeadBar">
+                    <a href="/logout">
+                        <div id="logoutIco" class="DynaButton">
+                            <table>
+                                <tr>
+                                    <td><img src="/img/logoutIco.png" /></td>
+                                    <td><p>Signout</p></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </a>
+                    <a href="/profile?action=edit&user=null">
+                        <div id="Edit" class="DynaWButton">
+                            <table style="height:55px; margin:0px; top:0px;">
+                                <tr>
+                                    <td><p>Edit</p></td>
+                                    <td><div><div id="WelcomeBox"><h1>Welcome</h1> <br /> {{name}}</div></div></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </a>
+                    
+
+                </div>
+                <div id="margin">
+                    <h2>Dashboard</h2>
+                    <br />
+                    <h3>Your Timesheets:</h3>
+                    <br />
+                    <div id="flexContainer">
+
+                        <br />
+                        {{#each client}}
+                        <div class="tableCol">
+
+                            <ul>
+                                <li class="tableHead"><h1>{{this.name}}</h1></li>
+                                {{#each this.dateTS}}
+                                {{#if this.IsLink}}
+                                <li class="tableChild"><a href='/timesheet?date={{this.date}}&client={{../this.client}}'>{{this.date}}</a></li>
+                                {{else}}
+                                <li class="tableChild">{{this.date}} <p>(No Work Done)</p></li>
+                                {{/if}}
+                                {{/each}}
+                            </ul>
+                        </div>
+                        {{/each}}
+                    </div>
+                    {{#if users}}
+                    <br />
+                    <h3>Users:</h3>
+                    <br />
+                    <table cellspacing="0" style="border-style:solid; border-width:2px; border-color:rgb(52, 52, 56)">
+                        <tr>
+                            <th class="tableHead">Name</th>
+                            <th class="tableHead hideAtLowRes">Email</th>
+                            <th class="tableHead hideAtLowRes">Status</th>
+                            <th class="tableHead hideAtLowRes">Admin</th>
+                            <th class="tableHead"></th>
+                        </tr>
+                        {{#each users}}
+                        <tr>
+                            <td class="tableChild">{{this.firstname}} {{this.lastname}}</td>
+                            <td class="tableChild hideAtLowRes">{{this.email}}</td>
+                            <td class="tableChild hideAtLowRes">{{this.status}}</td>
+                            <td class="tableChild hideAtLowRes"><input type = 'checkbox' {{#if this.admin}} checked {{/if}} disabled></td>
+                            <td class="tableChild"><a href="/profile?action=edit&user={{this.id}}">Edit</a></td>
+                        </tr>
+                        {{/each}}
+                        <tr>
+                            <td class="tableHead"></td>
+                            <td class="tableHead hideAtLowRes"></td>
+                            <td class="tableHead hideAtLowRes"></td>
+                            <td class="tableHead hideAtLowRes"></td>
+                            <td class="tableChild"><a href="/profile?action=new">New</a></td>
+                        </tr>
+                    </table>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </body>
+
+    </html>

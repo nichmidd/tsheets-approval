@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css" />
+    <title>{{title}}</title>
+</head>
+
+<body>
+    <div id="booster">
+        <div id="content">
+            <div id="HeadBar">
+                <a href="/logout">
+                    <div id="logoutIco" class="DynaButton">
+                        <table>
+                            <tr>
+                                <td><img src="/img/logoutIco.png" /></td>
+                                <td><p>Signout</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </a>
+                <a href="/dashboard">
+                    <div id="Back" class="DynaButton">
+                        <table>
+                            <tr>
+                                <td><p>Back</p></td>
+                                <td><img src="/img/back.png" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </a>
+
+
+            </div>
+            <div id="margin">
+                <br />
+                <form id="signup" name="signup" method="post" action="/usermod?action={{action}}&user={{id}}">
+                    <div class="tableBody">
+                        <div class="tableRow">
+                            <label for="email" class="tableCell">Email Address</label>
+                            <input class="text tableCell" name="email" value="{{email}}" type="email" />
+                        </div>
+                        <div class="tableRow">
+                            <label for="firstname" class="tableCell">Firstname</label>
+                            <input name="firstname" class="tableCell" value="{{firstname}}" type="text" />
+                        </div>
+                        <div class="tableRow">
+                            <label for="lastname" class="tableCell">Lastname</label>
+                            <input name="lastname" class="tableCell" value="{{lastname}}" type="text" />
+                        </div>
+                        <div class="tableRow">
+                            <label for="password" class="tableCell">Password</label>
+                            <input class="text tableCell" name="password" type="password" />
+                        </div>
+                    </div>
+                    <br />
+                    {{#is action "edit"}}
+                    <div>
+                        <label for="resetPW">Reset password?</label>
+                        <input type="checkbox" name="resetPW" />
+                    </div>
+                    {{/is}}
+                    {{#if admin}}
+                    <div>
+                        <label for="admin">admin</label>
+                        <input name="admin" {{#if usrAdmin}} checked {{/if}} type="checkbox" />
+                    </div>
+                    {{/if}}
+                    <br />
+                    {{#is action "new"}}
+                    <input class="btn" type="submit" value="Create" />
+                    {{/is}}
+                    {{#is action "edit"}}
+                    <input class="btn" type="submit" value="Update" />
+                    {{/is}}
+                </form>
+                <br />
+                <br />
+                <h3>Clients:</h3>
+                {{#if admin}}
+                <table>
+                    {{#each USRclients}}
+                    <tr>
+                        <td>{{this.ClientName}}</td>
+                        <td><a href="/usermod?action=rem&client={{this.ClientID}}&user={{../id}}">Remove</a></td>
+                    </tr>
+                    {{/each}}
+                </table>
+                {{else}}
+                <table>
+                    {{#each USRclients}}
+                    <tr>
+                        <td>{{this.ClientName}}</td>
+                    </tr>
+                    {{/each}}
+                </table>
+                {{/if}}
+                {{#if admin}}
+                <form id="AddUser" method="post" action="/usermod?action=add&user={{id}}">
+                    <select name="client">
+                        {{#each clients}}
+                        <option value="{{this.id}}"> {{this.name}}</option>
+                        {{/each}}
+                    </select>
+                    <input class="btn" type="submit" value="Add Client" />
+                </form>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+html {
+    background-color: rgb(25,25,25);
+    height: 100%;
+    width: 100%;
+    background: url("/img/cityscape.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#booster {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#content {
+    background-color: white;
+    max-width: 800px;
+    box-shadow: rgb(56, 52, 52) 0px 0px 6px;
+    margin: auto;
+    text-align: center;
+    font-family: Tahoma;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+table {
+    margin: auto;
+    text-align: left;
+}
+
+td {
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+h3 {
+    font-size: 30px;
+    color: black;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: rgb(52,52,56);
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#logo {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.buttonAccept {
+    border: none;
+    width: 200px;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: darkblue;
+    padding: 10px;
+    color: white;
+    transition: box-shadow 0.2s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .buttonAccept:hover {
+        box-shadow: darkgray 5px 5px 6px;
+    }

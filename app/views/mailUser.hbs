@@ -1,0 +1,12 @@
+<h2>Hi {{name}}!</h2>
+{{#if welcome}}
+<h3>Welcome to the MIT services Tsheets Approval System!</h3>
+{{else}}
+    <h3>Your MIT Tsheets details have been updated!</h3>
+{{/if}}
+    <p>Your Name has been recorded as {{name}}</p>
+    <p>Your Email has been set to {{Email}}</p>
+{{#if changePW}}
+    <h1>and your Password has been set to {{Password}}</h1>
+{{/if}}
+<h2>To jump in visit <a href="https://tsheets.mitservices.com.au">https://tsheets.mitservices.com.au</a></h2>
